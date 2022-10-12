@@ -1,0 +1,112 @@
+﻿@page
+@model BattingStatsApp.Pages.Battings.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Batters</h1>
+
+<form asp-page="/Battings/Index" method="get">
+    <div class="form-actions no-color">
+        <p>
+            Year:
+            <input type="text" name="yr" value="@Model.CurrentYr" />
+            Team:
+            <select name="lg" value="@Model.CurrentLg">
+                @if (Model.CurrentLg == "Both") {
+                    <option value="Both" selected>Both</option>
+                    <option value="NL">NL</option>
+                    <option value="AL">AL</option>
+                }
+                @if (Model.CurrentLg == "NL") {
+                    <option value="Both">Both</option>
+                    <option value="NL" selected>NL</option>
+                    <option value="AL">AL</option>
+                }
+                @if (Model.CurrentLg == "AL") {
+                    <option value="Both">Both</option>
+                    <option value="NL">NL</option>
+                    <option value="AL" selected>AL</option>
+                }
+            </select>
+                <input type="submit" value="Show" class="btn btn-primary" /> 
+        </p>
+    </div>
+</form>
+
+<a class="btn btn-link" 
+   asp-page="/Battings/Index" 
+   asp-route-yr="@Model.CurrentYr"
+   asp-route-lg = "@Model.CurrentLg" >
+   Test
+</a>
+
+<table class="table table-hover table-sm">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Batting[0].PlayerName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Batting[0].Ab)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Batting[0].R)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Batting[0].H)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Batting[0].Rbi)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Batting[0].Hr)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Batting[0].Avg)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Batting[0].OPS)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Batting) {
+            <tr>
+            <td>
+                @Html.DisplayFor(modelItem => @item.PlayerName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Ab)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.R)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.H)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Rbi)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Hr)
+            </td>
+            <td>
+                @*@item.Avg.ToString("#.000")*@
+                @string.Format("{0,6:#.000}",item.Avg)
+            </td>
+            <td>
+                @*@item.OPS.ToString("#.000")*@
+                @string.Format("{0,6:#.000}",item.OPS)
+            </td>
+@*            <td>
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            </td>
+*@        </tr>
+}
+    </tbody>
+</table>

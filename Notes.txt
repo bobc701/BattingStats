@@ -1,0 +1,3 @@
+Here is Scaffold-DbContext command
+----------------------------------
+Scaffold-DbContext -Connection "Data Source=s20.winhost.com;Initial Catalog=DB_133455_mlbhistory;User ID=DB_133455_mlbhistory_user;Password=klubX511;" -Provider Microsoft.EntityFrameworkCore.SqlServer -OutputDir "Models" -ContextDir "Data" -Context "BattingStatsDBContext" –Tables “Product, Customer” -NoOnConfiguring –Force
