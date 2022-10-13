@@ -12,12 +12,12 @@ using static System.Math;
 
 namespace BattingStatsApp.Pages.Battings;
 
-public class IndexModel : PageModel
+public class BattingModel : PageModel
 {
    private readonly BattingStatsApp.Data.BattingStatsDBContext _context;
    private readonly ILogger _logger;
 
-   public IndexModel(ILogger<IndexModel> logger, BattingStatsApp.Data.BattingStatsDBContext context)
+   public BattingModel(ILogger<BattingModel> logger, BattingStatsApp.Data.BattingStatsDBContext context)
    {
       _context = context;
       _logger = logger;
