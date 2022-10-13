@@ -42,7 +42,7 @@ public class BattingModel : PageModel
             b.PlayerId == m.PlayerId && 
             (b.LgId == lg || lg == "Both") && 
             b.YearId == yr &&
-            b.Ab >= 250
+            (b.Ab >= 250 || (CurrentYr == 2020 && b.Ab >= 100))
          select new BattingUI() {
             PlayerId = m.PlayerId,
             PlayerName = $"{m.NameLast}, {m.NameFirst}, {b.TeamId}",

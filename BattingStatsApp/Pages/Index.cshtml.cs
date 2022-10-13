@@ -14,7 +14,7 @@ namespace BattingStatsApp.Pages
 
       public ActionResult OnGet()
       {
-         return RedirectToPage("/Battings/Index", new { yr = 2021, lg = "Both" });
+         return RedirectToPage("/Battings/Batting", new { yr = 2021, lg = "Both" });
       }
    }
 }

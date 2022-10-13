@@ -5,14 +5,12 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Batters</h1>
-
-<form asp-page="/Battings/Index" method="get">
+<form method="get">
     <div class="form-actions no-color">
         <p>
             Year:
             <input type="text" name="yr" value="@Model.CurrentYr" />
-            Team:
+            League:
             <select name="lg" value="@Model.CurrentLg">
                 @if (Model.CurrentLg == "Both") {
                     <option value="Both" selected>Both</option>
@@ -30,17 +28,28 @@
                     <option value="AL" selected>AL</option>
                 }
             </select>
-                <input type="submit" value="Show" class="btn btn-primary" /> 
+            <input type="submit" value="Batters" asp-page="/Battings/Batting" class="btn btn-primary" /> 
+            <input type="submit" value="Pitchers" asp-page="/Battings/Pitching" class="btn btn-primary" /> 
         </p>
     </div>
 </form>
 
-<a class="btn btn-link" 
-   asp-page="/Battings/Index" 
+<h2>Batters</h2>
+
+@*This was to experiment with links o/side Form...
+*@@*<a class="btn btn-link" 
+   asp-page="/Battings/Batting" 
    asp-route-yr="@Model.CurrentYr"
    asp-route-lg = "@Model.CurrentLg" >
-   Test
+   Batters
 </a>
+<a class="btn btn-link" 
+   asp-page="/Battings/Pitching" 
+   asp-route-yr="@Model.CurrentYr"
+   asp-route-lg = "@Model.CurrentLg" >
+   Pitchers
+</a>
+*@
 
 <table class="table table-hover table-sm">
     <thead>
