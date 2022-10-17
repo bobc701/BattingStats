@@ -11,7 +11,7 @@ namespace BattingStatsApp.Models
         public string TeamId { get; set; } = null!;
         public string LgId { get; set; } = null!;
         public string? LahmanId { get; set; }
-        public int W { get; set; }
+        public int W { get; set; } 
         public int L { get; set; }
         public int G { get; set; }
         public int Gs { get; set; }

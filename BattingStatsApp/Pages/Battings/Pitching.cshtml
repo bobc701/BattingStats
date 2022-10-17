@@ -53,3 +53,81 @@
 <p/>
 Nothing here yet...
 
+/* G W L Sv IP So Era Whip */
+
+<table class="table table-hover table-sm">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Pitching[0].PlayerName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Pitching[0].G)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Pitching[0].W)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Pitching[0].L)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Pitching[0].Sv)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Pitching[0].Ip)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Pitching[0].So)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Pitching[0].Whip)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Pitching[0].Era)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Pitching) {
+            <tr>
+            <td>
+                @Html.DisplayFor(modelItem => @item.PlayerName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.G)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.W)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.L)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Sv)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Ip)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.So)
+            </td>
+            <td>
+                @*@item.Avg.ToString("#.000")*@
+                @string.Format("{0,5:#.00}",item.Whip)
+            </td>
+            <td>
+                @*@item.OPS.ToString("#.000")*@
+                @string.Format("{0,5:#.00}",item.Era)
+            </td>
+@*            <td>
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            </td>
+*@        </tr>
+}
+    </tbody>
+</table>
+
+
