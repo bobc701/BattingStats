@@ -2,7 +2,14 @@
 @model BattingStatsApp.Pages.Battings.BattingModel
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Batting";
+    int MinPA = Model.CurrentYr switch {
+    2020 => 186,
+    <= 1961 => 478,
+    _ => 503
+};
+
+
 }
 
 @*<partial name="_Criteria" model="Model.CriteriaSet" />
@@ -11,8 +18,8 @@
     <div class="form-actions no-color">
         <p>
             Year:
-            <input type="text" name="yr" value="@Model.CurrentYr" />
-            League:
+            <input type="text" name="yr" style="width: 80px;" value="@Model.CurrentYr" />
+            <span style="margin-left: 15px;">League:</span>
             <select name="lg" value="@Model.CurrentLg">
                 @if (Model.CurrentLg == "Both") {
                     <option value="Both" selected>Both</option>
@@ -30,13 +37,17 @@
                     <option value="AL" selected>AL</option>
                 }
             </select>
-            <input type="submit" value="Batters" asp-page="/Battings/Batting" class="btn btn-primary" /> 
-            <input type="submit" value="Pitchers" asp-page="/Battings/Pitching" class="btn btn-primary" /> 
+            <input type="submit" value="Batters" asp-page="/Battings/Batting" 
+                   class="btn btn-primary" style="margin-left: 15px;" /> 
+            <input type="submit" value="Pitchers" asp-page="/Battings/Pitching" 
+                   class="btn btn-primary" style="margin-left: 15px;" /> 
         </p>
     </div>
 </form>
 
 <h2>Batters</h2>
+<span style="margin-left: 15px;"><em>Italics: Non-qualifier for batting title</em></span>
+<p/>
 
 @*This was to experiment with links o/side Form...
 *@@*<a class="btn btn-link" 
@@ -53,10 +64,11 @@
 </a>
 *@
 
+<div class="col-lg-6 col-md-9 col-sm-10 col-xs-12">
 <table class="table table-hover table-sm">
     <thead>
         <tr>
-            <th>
+            <th style="width: 38%" >
                 @Html.DisplayNameFor(model => model.Batting[0].PlayerName)
             </th>
             <th>
@@ -84,10 +96,15 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.Batting) {
+       @foreach (var item in Model.Batting) {
             <tr>
             <td>
-                @Html.DisplayFor(modelItem => @item.PlayerName)
+                @if (item.Pa < MinPA) { 
+                    <em> @Html.DisplayFor(modelItem => @item.PlayerName) </em>
+                }   
+                else {
+                    @Html.DisplayFor(modelItem => @item.PlayerName)
+                }
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Ab)
@@ -105,12 +122,20 @@
                 @Html.DisplayFor(modelItem => item.Hr)
             </td>
             <td>
-                @*@item.Avg.ToString("#.000")*@
-                @string.Format("{0,6:#.000}",item.Avg)
+                @if (item.Pa < MinPA) { 
+                   <em>@string.Format("{0,6:#.000}",item.Avg)</em>
+                }
+                else {
+                   @string.Format("{0,6:#.000}",item.Avg)
+                }
             </td>
             <td>
-                @*@item.OPS.ToString("#.000")*@
-                @string.Format("{0,6:#.000}",item.OPS)
+                @if (item.Pa < MinPA) { 
+                   <em>@string.Format("{0,6:#.000}",item.OPS)</em>
+                }
+                else {
+                   @string.Format("{0,6:#.000}",item.OPS)
+                }
             </td>
 @*            <td>
                 @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
@@ -121,3 +146,4 @@
 }
     </tbody>
 </table>
+</div>

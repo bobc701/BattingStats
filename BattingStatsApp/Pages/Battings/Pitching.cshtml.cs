@@ -37,9 +37,11 @@ namespace BattingStatsApp.Pages.Battings
             from m in _context.Masters
             where
                p.PlayerId == m.PlayerId &&
-               (p.LgId == lg || lg == "Both") &&
+               (lg == p.LgId ||
+               (lg == "Both" && (p.LgId == "NL" || p.LgId == "AL"))) &&
                p.YearId == yr &&
-               (p.Ipouts >= 300 || (CurrentYr == 2020 && p.Ipouts >= 100))
+               (p.Ipouts >= 150 || 
+               (CurrentYr == 2020 && p.Ipouts >= 60))
             select new PitchingUI() {
                PlayerId = m.PlayerId,
                PlayerName = $"{m.NameLast}, {m.NameFirst}, {p.TeamId}",
@@ -49,14 +51,16 @@ namespace BattingStatsApp.Pages.Battings
                Sv = p.Sv,
                So = p.So,
                Bb = p.Bb,
-               Era = p.Era,
+               Ipouts = p.Ipouts,
+               //Ip = Round(p.Ipouts / 3.0, 1),
+               Era = Round(p.Ipouts > 0 ? p.Er / (p.Ipouts / 3.0) * 9.0 : 0.0, 2)
             };
 
 
-         Pitching = await pitchingIQ.OrderByDescending(e => e.Era).ToListAsync();
+         Pitching = await pitchingIQ.OrderBy(e => e.Era).ToListAsync();
          Pitching.ForEach(p => {
-            p.Ip = Round(p.Ipouts / 3.0, 1);
             p.Whip = Round(p.Ipouts > 0 ? (double)(p.H + p.Bb) / (double)(p.Ipouts / 3.0) : 0.0, 3);
+            p.Ip = p.IpDisplay;
          });
    }
 }

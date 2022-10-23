@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using static System.Math;
 
 namespace BattingStatsApp.Models
 {
@@ -36,5 +37,6 @@ namespace BattingStatsApp.Models
         public int? Sh { get; set; }
         public int? Sf { get; set; }
         public int? Gidp { get; set; }
+
     }
 }

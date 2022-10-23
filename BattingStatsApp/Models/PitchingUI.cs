@@ -38,6 +38,23 @@ namespace BattingStatsApp.Models
       public int? R { get; set; }
       public int? Sh { get; set; }
       public int? Sf { get; set; }
+
+      public double IpDisplay {
+         get {
+            double ip = Ipouts / 3.0;
+            double n = System.Math.Truncate(ip);
+            int d = (int)(10.0 * (ip - n));
+            //string s = n.ToString();
+            return d switch {
+               0 => n,
+               3 => n + 0.1,
+               6 => n + 0.2,
+               _ => 0.0
+            };
+         }
+
+      }
+
    }
 
 }

@@ -13,6 +13,7 @@ namespace BattingStatsApp.Models
       public string TeamId { get; set; } = null!;
       public string LgId { get; set; } = null!;
       public int G { get; set; }
+      public int Pa { get; set; }
       public int Ab { get; set; }
       public int R { get; set; }
       public int H { get; set; }

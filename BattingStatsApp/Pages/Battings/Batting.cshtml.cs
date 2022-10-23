@@ -40,12 +40,14 @@ public class BattingModel : PageModel
          from m in _context.Masters
          where
             b.PlayerId == m.PlayerId && 
-            (b.LgId == lg || lg == "Both") && 
+            (lg == b.LgId || 
+            (lg == "Both" && (b.LgId == "NL" || b.LgId == "AL"))) && 
             b.YearId == yr &&
             (b.Ab >= 250 || (CurrentYr == 2020 && b.Ab >= 100))
          select new BattingUI() {
             PlayerId = m.PlayerId,
             PlayerName = $"{m.NameLast}, {m.NameFirst}, {b.TeamId}",
+            Pa = (int)b.Pa!,
             Ab = b.Ab,
             R = b.R,
             H = b.H,

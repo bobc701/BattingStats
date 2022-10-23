@@ -2,14 +2,19 @@
 @model BattingStatsApp.Pages.Battings.PitchingModel
 @{
     ViewData["Title"] = "Pitching";
+    int MinIP = Model.CurrentYr switch {
+        2020 => 60,
+        <= 1961 => 154,
+        _ => 162
+    };
 }
 
 <form method="get">
     <div class="form-actions no-color">
         <p>
             Year:
-            <input type="text" name="yr" value="@Model.CurrentYr" />
-            League:
+            <input type="text" name="yr" style="width: 80px;" value="@Model.CurrentYr" />
+            <span style="margin-left: 15px;">League:</span>
             <select name="lg" value="@Model.CurrentLg">
                 @if (Model.CurrentLg == "Both") {
                     <option value="Both" selected>Both</option>
@@ -27,13 +32,17 @@
                     <option value="AL" selected>AL</option>
                 }
             </select>
-            <input type="submit" value="Batters" asp-page="/Battings/Batting" class="btn btn-primary" /> 
-            <input type="submit" value="Pitchers" asp-page="/Battings/Pitching" class="btn btn-primary" /> 
+            <input type="submit" value="Batters" asp-page="/Battings/Batting" 
+                   class="btn btn-primary" style="margin-left: 15px;" /> 
+            <input type="submit" value="Pitchers" asp-page="/Battings/Pitching" 
+                   class="btn btn-primary" style="margin-left: 15px;" /> 
         </p>
     </div>
 </form>
 
 <h2>Pitchers</h2>
+<span style="margin-left: 15px;"><em>Italics: Non-qualifier for ERA title</em></span>
+<p/>
 
 @*This was to experiment with links o/side Form...
 *@@*<a class="btn btn-link" 
@@ -50,15 +59,14 @@
 </a>
 *@
 
-<p/>
-Nothing here yet...
+@*<p/>*@
+@*G W L Sv IP So Era Whip *@
 
-/* G W L Sv IP So Era Whip */
-
+<div class="col-lg-6 col-md-9 col-sm-10 col-xs-12">
 <table class="table table-hover table-sm">
     <thead>
         <tr>
-            <th>
+            <th style="width: 38%">
                 @Html.DisplayNameFor(model => model.Pitching[0].PlayerName)
             </th>
             <th>
@@ -85,14 +93,19 @@ Nothing here yet...
             <th>
                 @Html.DisplayNameFor(model => model.Pitching[0].Era)
             </th>
-            <th></th>
+            
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.Pitching) {
+       @foreach (var item in Model.Pitching) {
             <tr>
             <td>
-                @Html.DisplayFor(modelItem => @item.PlayerName)
+                @if (item.Ip < MinIP) { 
+                    <em>@Html.DisplayFor(modelItem => @item.PlayerName)</em>
+                }   
+                else {
+                    @Html.DisplayFor(modelItem => @item.PlayerName)
+                }
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.G)
@@ -113,21 +126,32 @@ Nothing here yet...
                 @Html.DisplayFor(modelItem => item.So)
             </td>
             <td>
-                @*@item.Avg.ToString("#.000")*@
-                @string.Format("{0,5:#.00}",item.Whip)
+                @if (item.Ip < MinIP) {
+                   <em>@string.Format("{0,5:#0.00}",item.Whip)</em>
+                }
+                else {
+                   @string.Format("{0,5:#0.00}",item.Whip)
+                }
             </td>
             <td>
-                @*@item.OPS.ToString("#.000")*@
-                @string.Format("{0,5:#.00}",item.Era)
+                @if (item.Ip < MinIP) {
+                   <em>@string.Format("{0,5:#0.00}",item.Era)</em>
+                }
+                else {
+                   @string.Format("{0,5:#0.00}",item.Era)
+                }
             </td>
 @*            <td>
                 @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
                 @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
                 @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
             </td>
-*@        </tr>
-}
+*@        
+            </tr>
+       }
+
     </tbody>
 </table>
+</div>
 
 
