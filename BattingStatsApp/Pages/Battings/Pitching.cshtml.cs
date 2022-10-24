@@ -52,6 +52,7 @@ namespace BattingStatsApp.Pages.Battings
                So = p.So,
                Bb = p.Bb,
                Ipouts = p.Ipouts,
+               H = p.H,
                //Ip = Round(p.Ipouts / 3.0, 1),
                Era = Round(p.Ipouts > 0 ? p.Er / (p.Ipouts / 3.0) * 9.0 : 0.0, 2)
             };
