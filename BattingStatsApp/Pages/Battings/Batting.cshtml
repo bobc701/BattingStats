@@ -17,8 +17,10 @@
 <form method="get">
     <div class="form-actions no-color">
         <p>
-            Year:
+           <input type="hidden" name="sort" value="@Model.CurrentSort" />
+           Year:
             <input type="text" name="yr" style="width: 80px;" value="@Model.CurrentYr" />
+            
             <span style="margin-left: 15px;">League:</span>
             <select name="lg" value="@Model.CurrentLg">
                 @if (Model.CurrentLg == "Both") {
@@ -69,28 +71,76 @@
     <thead>
         <tr>
             <th style="width: 38%" >
-                @Html.DisplayNameFor(model => model.Batting[0].PlayerName)
+                <a 
+                   asp-page="/Battings/Batting" 
+                   asp-route-yr="@Model.CurrentYr"
+                   asp-route-lg = "@Model.CurrentLg"
+                   asp-route-sort = "Name">
+                   @Html.DisplayNameFor(model => model.Batting[0].PlayerName)
+                </a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Batting[0].Ab)
+                <a 
+                   asp-page="/Battings/Batting" 
+                   asp-route-yr="@Model.CurrentYr"
+                   asp-route-lg = "@Model.CurrentLg"
+                   asp-route-sort = "Ab">
+                   @Html.DisplayNameFor(model => model.Batting[0].Ab)
+                </a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Batting[0].R)
+                <a 
+                   asp-page="/Battings/Batting" 
+                   asp-route-yr="@Model.CurrentYr"
+                   asp-route-lg = "@Model.CurrentLg"
+                   asp-route-sort = "R">
+                   @Html.DisplayNameFor(model => model.Batting[0].R)
+                </a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Batting[0].H)
+                <a 
+                   asp-page="/Battings/Batting" 
+                   asp-route-yr="@Model.CurrentYr"
+                   asp-route-lg = "@Model.CurrentLg"
+                   asp-route-sort = "H">
+                   @Html.DisplayNameFor(model => model.Batting[0].H)
+                </a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Batting[0].Rbi)
+                <a 
+                   asp-page="/Battings/Batting" 
+                   asp-route-yr="@Model.CurrentYr"
+                   asp-route-lg = "@Model.CurrentLg"
+                   asp-route-sort = "Rbi">
+                   @Html.DisplayNameFor(model => model.Batting[0].Rbi)
+                </a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Batting[0].Hr)
+                <a 
+                   asp-page="/Battings/Batting" 
+                   asp-route-yr="@Model.CurrentYr"
+                   asp-route-lg = "@Model.CurrentLg"
+                   asp-route-sort = "Hr">
+                   @Html.DisplayNameFor(model => model.Batting[0].Hr)
+                </a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Batting[0].Avg)
+                <a 
+                   asp-page="/Battings/Batting" 
+                   asp-route-yr="@Model.CurrentYr"
+                   asp-route-lg = "@Model.CurrentLg"
+                   asp-route-sort = "Avg">
+                   @Html.DisplayNameFor(model => model.Batting[0].Avg)
+                </a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Batting[0].OPS)
+                <a 
+                   asp-page="/Battings/Batting" 
+                   asp-route-yr="@Model.CurrentYr"
+                   asp-route-lg = "@Model.CurrentLg"
+                   asp-route-sort = "OPS">
+                   @Html.DisplayNameFor(model => model.Batting[0].OPS)
+                </a>
             </th>
             <th></th>
         </tr>
